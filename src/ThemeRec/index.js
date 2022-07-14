@@ -1,11 +1,12 @@
 import React from "react";
-import Tag from "./Tag";
-import ProdList from "./ProdList";
+import Tag from "../Component/Tag";
+import ProdList from "../Component/ProdList";
+import Pagination from "../Component/Pagination";
+// import Data from '../Feature/data';
 
 import "./themeRec.scss";
-import Pagination from "./Pagination";
-
 const ThemeRec = (props) => {
+  // const{data} = props
   const {
     themeData = [
       {
@@ -99,7 +100,7 @@ const ThemeRec = (props) => {
         </div>
         <h3 className="c-themeRec__adTitle">{themeData[0].title}</h3>
         <div className="c-themeRec__infoEdit">
-          <Tag keyword={themeData[0].keyword}/>
+          <Tag keywordData={themeData[0].keyword}/>
           <div className="c-themeRec__banner">
             <img src={themeData[0].backgroundSrc} alt={themeData[0].backgroundAlt} />
           </div>
