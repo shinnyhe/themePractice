@@ -1,0 +1,38 @@
+.c-tag{
+  width: 40%;
+  margin: 0 24px 48px 24px;
+  color: #ffffff;
+  z-index: 1;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  li{
+    max-width: 100%;
+    font-size: 14px;
+    margin-right: 10px;
+  }
+  li+li{
+    margin-top:16px;
+  }
+  &__link{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 2px 12px;
+    color: #ffffff;
+    font-size: 14px;
+    border-radius: 100px;
+    background: rgba(255, 255, 255, 0.2);
+    &:hover{
+      color: inherit;
+    }
+    span{
+      width: 100%;
+      display: inline-block;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+  }
+}
