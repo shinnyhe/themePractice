@@ -1,7 +1,8 @@
 import React from "react";
 import "./pagination.scss";
 
-const Pagination = ({ item }) => {
+const Pagination = ({ item,totalCount,pageSize,siblingCount = 1,
+  currentPage }) => {
 
   return (
     <ul className="c-pagination">

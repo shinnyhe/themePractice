@@ -6,11 +6,16 @@ import Data from '../Feature/data';
 
 import "./themeRec.scss";
 const ThemeRec = () => {
-  const [sliceProdData, setSliceProdData] = useState([]);
-  const keywordData = Data.slice(1,6)
+  const [prodData, setProdData] = useState([]);
+  const splitArrayIntoChunksOfLen= (arr, len) => {
+    let chunks = [], i = 0, n = arr.length;
+    while (i < n) {
+      chunks.push(arr.slice(i, i += len));
+    }
+    return chunks;
+  }
   useEffect(()=>{
-    const prodData = Data.slice(6, 24).map((item) => {
-      console.log(item)
+    const newProdData = Data.slice(6, 24).map((item) => {
 			switch (item.ExtraData.ElementType) {
 				case 'Search':
 					item.Link.Url = `https://ecshweb.pchome.com.tw/search/v3.3/?q=${item.Link.Url}`;
@@ -26,8 +31,9 @@ const ThemeRec = () => {
 			}
 			return item;
 		})
-		setSliceProdData(prodData)
-  },[sliceProdData])
+    const chunks =splitArrayIntoChunksOfLen(newProdData,6);
+		setProdData(chunks[0])
+  },[])
 
 
   return (
@@ -45,15 +51,15 @@ const ThemeRec = () => {
         </div>
         <h3 className="c-themeRec__adTitle" >{Data[0].Link.Text}</h3>
         <div className="c-themeRec__infoEdit">
-          <Tag keywordData={keywordData}/>
+          <Tag keywordData={Data.slice(1,6)}/>
           <div className="c-themeRec__banner">
             <img src={Data[0].Img.Src} alt='' />
           </div>
         </div>
       </div>
       <div className="c-themeRec__prodInfo">
-        <ProdList prodData={sliceProdData} />
-        <Pagination item="5" />
+        <ProdList prodData={prodData} />
+        <Pagination item={(Data.slice(6, 24).length)/6} />
       </div>
     </div>
   );
