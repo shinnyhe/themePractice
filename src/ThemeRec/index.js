@@ -8,7 +8,9 @@ import "./themeRec.scss";
 const ThemeRec = () => {
   const [prodData, setProdData] = useState([]);
   const splitArrayIntoChunksOfLen= (arr, len) => {
-    let chunks = [], i = 0, n = arr.length;
+    let chunks = []
+    let i = 0
+    let n = arr.length
     while (i < n) {
       chunks.push(arr.slice(i, i += len));
     }
@@ -32,7 +34,7 @@ const ThemeRec = () => {
 			return item;
 		})
     const chunks =splitArrayIntoChunksOfLen(newProdData,6);
-		setProdData(chunks[0])
+		setProdData(chunks[0],chunks[1],chunks[2])
   },[])
 
 
