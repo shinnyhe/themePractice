@@ -17,7 +17,7 @@ const ProdItem = (props) => {
 					</div>
 					<div className="c-prodList__itemBody">
 						<div className="c-prodList__itemTitle">{Link.Text}</div>
-						<div className="c-prodList__itemPrice">{Link.Text1}</div>
+						<div className="c-prodList__itemPrice">${Number(Link.Text1)}</div>
 					</div>
 				</div>
 			</a>
