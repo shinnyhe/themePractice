@@ -1,95 +1,40 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
 import Tag from "../Component/Tag";
 import ProdList from "../Component/ProdList";
 import Pagination from "../Component/Pagination";
-// import Data from '../Feature/data';
+import Data from '../Feature/data';
 
 import "./themeRec.scss";
-const ThemeRec = (props) => {
-  // const{data} = props
-  const {
-    themeData = [
-      {
-        id:1,
-        title: "美妝美體",
-        backgroundColor: "#000",
-        backgroundAlt: "Ad",
-        backgroundSrc: "//fs-a.ecimg.tw/img/h24/v2/layout/index/20220708095757_62c78f2254ac0_720x1192.jpg?text=品牌週",
-        prodData: [
-          {
-            id:1,
-            imageSrc: "https://fakeimg.pl/300/",
-            imageAlt: "prod",
-            title: "test",
-            link: "https://24h.pchome.com.tw/",
-            price: "100",
-            atClick: null,
-          },
-          {
-            id:2,
-            imageSrc: "https://fakeimg.pl/300/",
-            imageAlt: "prod",
-            title: "test",
-            link: "https://24h.pchome.com.tw/",
-            price: "200",
-            atClick: null,
-          },
-          {
-            id:3,
-            imageSrc: "https://fakeimg.pl/300/",
-            imageAlt: "prod",
-            title: "test",
-            link: "https://24h.pchome.com.tw/",
-            price: "300",
-            atClick: null,
-          },
-          {
-            id:4,
-            imageSrc: "https://fakeimg.pl/300/",
-            imageAlt: "prod",
-            title: "test",
-            link: "https://24h.pchome.com.tw/",
-            price: "400",
-            atClick: null,
-          },
-          {
-            id:5,
-            imageSrc: "https://fakeimg.pl/300/",
-            imageAlt: "prod",
-            title: "test",
-            link: "https://24h.pchome.com.tw/",
-            price: "500",
-            atClick: null,
-          },
-          {
-            id:6,
-            imageSrc: "https://fakeimg.pl/300/",
-            imageAlt: "prod",
-            title: "test",
-            link: "https://24h.pchome.com.tw/",
-            price: "600",
-            atClick: null,
-          },
-        ],
-        keyword: [
-          {
-            text: "關鍵字",
-            link: "https://24h.pchome.com.tw/",
-          },
-          {
-            text: "關鍵字",
-            link: "https://24h.pchome.com.tw/",
-          },
-        ],
-      }
-    ],
-  } = props;
+const ThemeRec = () => {
+  const [sliceProdData, setSliceProdData] = useState([]);
+  const keywordData = Data.slice(1,6)
+  useEffect(()=>{
+    const prodData = Data.slice(6, 24).map((item) => {
+      console.log(item)
+			switch (item.ExtraData.ElementType) {
+				case 'Search':
+					item.Link.Url = `https://ecshweb.pchome.com.tw/search/v3.3/?q=${item.Link.Url}`;
+					break;
+				case 'Store':
+					item.Link.Url = `https://24h.pchome.com.tw/store/${item.Link.Url}`;
+					break;
+				case 'Prod':
+					item.Link.Url = `https://24h.pchome.com.tw/prod/${item.Link.Url}`;
+					break;
+				default:
+					break;
+			}
+			return item;
+		})
+		setSliceProdData(prodData)
+  },[sliceProdData])
+
 
   return (
     <div className="c-themeRec">
       <div className="c-themeRec__adInfo">
         {/* 背景編輯器更換 start */}
-        <div className="c-themeRec__bgEdit" style={{backgroundColor: themeData[0].backgroundColor}} />
+        <div className="c-themeRec__bgEdit" />
         {/* 背景編輯器更換 end */}
         <div className="c-themeRec__colorTag">
           <div className="c-themeRec__colorTagWrapper">
@@ -98,16 +43,16 @@ const ThemeRec = (props) => {
             </i>
           </div>
         </div>
-        <h3 className="c-themeRec__adTitle">{themeData[0].title}</h3>
+        <h3 className="c-themeRec__adTitle" >{Data[0].Link.Text}</h3>
         <div className="c-themeRec__infoEdit">
-          <Tag keywordData={themeData[0].keyword}/>
+          <Tag keywordData={keywordData}/>
           <div className="c-themeRec__banner">
-            <img src={themeData[0].backgroundSrc} alt={themeData[0].backgroundAlt} />
+            <img src={Data[0].Img.Src} alt='' />
           </div>
         </div>
       </div>
       <div className="c-themeRec__prodInfo">
-        <ProdList prodData={themeData[0].prodData} />
+        <ProdList prodData={sliceProdData} />
         <Pagination item="5" />
       </div>
     </div>

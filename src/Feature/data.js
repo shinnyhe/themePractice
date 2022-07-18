@@ -1,4 +1,4 @@
-const data = [
+const Data = [
 	{
 		Id: 1,
 		Link: { Text: "真該死", Text2: "好棒棒", Background: "#FF0000" },
@@ -304,4 +304,4 @@ const data = [
 	},
 ];
 
-export { data };
+export default  Data ;
