@@ -33,7 +33,7 @@ const ThemeRec = () => {
 			}
 			return item;
 		})
-    const chunks =splitArrayIntoChunksOfLen(newProdData,6);
+    const chunks = splitArrayIntoChunksOfLen(newProdData,6);
 		setProdData(chunks[0],chunks[1],chunks[2])
   },[])
 
@@ -42,7 +42,7 @@ const ThemeRec = () => {
     <div className="c-themeRec">
       <div className="c-themeRec__adInfo">
         {/* 背景編輯器更換 start */}
-        <div className="c-themeRec__bgEdit" />
+        <div className="c-themeRec__bgEdit" style={{backgroundColor: Data[0].Link.Background}} />
         {/* 背景編輯器更換 end */}
         <div className="c-themeRec__colorTag">
           <div className="c-themeRec__colorTagWrapper">
