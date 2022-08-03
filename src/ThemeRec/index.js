@@ -8,61 +8,49 @@ import "./themeRec.scss";
 const ThemeRec = () => {
   const [data, setData] = useState([]);
   const [perProd] = useState(6); //每頁顯示幾筆
-  const pageNumberLimit = 6;
   const [pageCount, setPageCount] = useState(1);
-  const [maxPageLimit, setMaxPageLimit] = useState(6);
-  const [minPageLimit, setMinPageLimit] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
-  const renderTypeUrl = (type) => {
-    switch (type) {
-      case "Store":
-        return "https://24h.pchome.com.tw/store/";
-      case "Prod":
-        return "https://24h.pchome.com.tw/prod/";
-      case "Search":
-        return "https://ecshweb.pchome.com.tw/search/v3.3/?q=";
-      default:
-        return "";
-    }
-  };
-  const splitArrayIntoChunksOfLen = (arr, len) => {
-    let chunks = [];
-    let i = 0;
-    let n = arr.length;
-    while (i < n) {
-      chunks.push(arr.slice(i, (i += len)));
-    }
-    return chunks;
-  };
-
   const getData = () => {
     const slice = Data.slice(6, 24);
     const data = slice;
-    const prodItem = () =>
-      slice.map((objData) => <ProdItem key="objData.id" {...objData} />);
-    const chunks = splitArrayIntoChunksOfLen(prodItem(), 6);
-
-    setData(chunks[0]);
+    const prodData = data.slice(
+      currentPage * perProd - perProd,
+      currentPage * perProd
+    );
+    const newData = prodData.map((item) => {
+      switch (item.ExtraData.ElementType) {
+        case "Search":
+          item.Link.Url = `https://ecshweb.pchome.com.tw/search/v3.3/?q=${item.Link.Url}`;
+          break;
+        case "Store":
+          item.Link.Url = `https://24h.pchome.com.tw/store/${item.Link.Url}`;
+          break;
+        case "Prod":
+          item.Link.Url = `https://24h.pchome.com.tw/prod/${item.Link.Url}`;
+          break;
+        default:
+          break;
+      }
+      return item;
+    });
+    setData(newData);
     setPageCount(Math.ceil(data.length / perProd));
   };
   useEffect(() => {
     getData();
-  }, []);
-  const onPageChange = (pageNumber) => {
-    setCurrentPage(pageNumber);
-  };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pageCount, currentPage]);
+
   const onPrevClick = () => {
-    if ((currentPage - 1) % pageNumberLimit === 0) {
-      setMaxPageLimit(maxPageLimit - pageNumberLimit);
-      setMinPageLimit(minPageLimit - pageNumberLimit);
+    if (currentPage === 1) {
+      return;
     }
     setCurrentPage((prev) => prev - 1);
   };
 
   const onNextClick = () => {
-    if (currentPage + 1 > maxPageLimit) {
-      setMaxPageLimit(maxPageLimit + pageNumberLimit);
-      setMinPageLimit(minPageLimit + pageNumberLimit);
+    if (currentPage === pageCount) {
+      return;
     }
     setCurrentPage((prev) => prev + 1);
   };
@@ -91,13 +79,16 @@ const ThemeRec = () => {
         </div>
       </div>
       <div className="c-themeRec__prodInfo">
-        <div className="c-themeRec__prodList">{data}</div>
+        <div className="c-themeRec__prodList">
+          {data.map((objData) => (
+            <ProdItem key={objData.Id} {...objData} />
+          ))}
+        </div>
         <Pagination
           currentPage={currentPage}
           pageCount={pageCount}
           onPrevClick={onPrevClick}
           onNextClick={onNextClick}
-          onPageChange={onPageChange}
         />
       </div>
     </div>

@@ -1,13 +1,7 @@
 import React from "react";
 import "./pagination.scss";
 
-const Pagination = ({
-  onPrevClick,
-  pageCount,
-  onNextClick,
-  onPageChange,
-  currentPage,
-}) => {
+const Pagination = ({ onPrevClick, pageCount, onNextClick, currentPage }) => {
   const handlePrevClick = () => {
     onPrevClick();
   };
