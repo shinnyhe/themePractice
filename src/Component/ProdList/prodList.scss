@@ -1,12 +1,4 @@
 .c-prodList {
-  &--vertical & {
-    &__flex {
-      flex-direction: column;
-    }
-    &__title {
-      margin-bottom: 10px;
-    }
-  }
   &__body {
     position: relative;
     border-top: 1px solid #ffffff;
@@ -37,8 +29,14 @@
   }
 
   &__prodInfo {
-    width: 100%;
+    display: flex;
+    width: calc((100% - 80px) / 3);
+    margin-right: 40px;
     flex-wrap: wrap;
+    justify-content: center;
+    &:nth-of-type(3n) {
+      margin-right: 0;
+    }
   }
   &__link {
     display: block;
@@ -56,6 +54,7 @@
   &__flex {
     display: flex;
     align-items: center;
+    flex-direction: column;
   }
   &__img {
     display: flex;

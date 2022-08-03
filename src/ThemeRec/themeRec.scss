@@ -62,7 +62,7 @@ body {
     overflow: hidden;
     background-color: #2e769e;
     z-index: 1;
-    img{
+    img {
       height: 100%;
       object-fit: cover;
       width: 100%;
@@ -70,7 +70,6 @@ body {
   }
   &__prodInfo {
     width: calc(100% - 600px);
-    padding: 24px 0 0 0;
     .c-prodList {
       &__img {
         width: 152px;
@@ -78,7 +77,12 @@ body {
       }
     }
   }
-
+  &__prodList {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 24px 52px 8px;
+  }
   &__colorTag {
     position: absolute;
     top: 16px;
