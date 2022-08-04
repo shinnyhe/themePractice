@@ -9,7 +9,7 @@ const ProdItem = (props) => {
         <div className="c-prodList__flex">
           <div className="c-prodList__head">
             <div className="c-prodList__img">
-              <img src={Img.Src} alt={Link.Text} />
+              <img src={`https://cs-a.ecimg.tw${Img.Src}`} alt={Link.Text} />
             </div>
           </div>
           <div className="c-prodList__itemBody">
