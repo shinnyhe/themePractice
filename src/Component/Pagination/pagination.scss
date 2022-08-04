@@ -57,8 +57,21 @@
     &:hover {
       border-color: #ea1717;
     }
+    &.is-disabled {
+      color: #e5e5e5;
+      border: 1px solid #e5e5e5;
+      background-color: #ffffff;
+      cursor: default;
+      .o-icon__arrow--prev {
+        border-right: 8px solid #e5e5e5;
+      }
+      .o-icon__arrow--next {
+        border-left: 8px solid #e5e5e5;
+      }
+    }
   }
 }
+
 .o-icon {
   display: inline-block;
   vertical-align: middle;

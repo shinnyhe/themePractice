@@ -39,7 +39,7 @@ const ThemeRec = () => {
   useEffect(() => {
     getData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pageCount, currentPage]);
+  }, [currentPage]);
 
   const onPrevClick = () => {
     if (currentPage === 1) {

@@ -13,7 +13,11 @@ const Pagination = ({ onPrevClick, pageCount, onNextClick, currentPage }) => {
     <ul className="c-pagination">
       <li className="c-pagination__item is-prev">
         <button
-          className="btn btn--circular is-disabled"
+          className={
+            currentPage === 1
+              ? "btn btn--circular is-disabled"
+              : "btn btn--circular"
+          }
           type="button"
           onClick={handlePrevClick}
         >
@@ -25,7 +29,11 @@ const Pagination = ({ onPrevClick, pageCount, onNextClick, currentPage }) => {
       <li className="c-pagination__item is-total">{pageCount}</li>
       <li className="c-pagination__item is-next">
         <button
-          className="btn btn--circular"
+          className={
+            currentPage === pageCount
+              ? "btn btn--circular is-disabled"
+              : "btn btn--circular"
+          }
           type="button"
           onClick={handleNextClick}
         >
