@@ -20,7 +20,7 @@ const ThemeRec = () => {
       currentPage * perProd - perProd,
       currentPage * perProd
     );
-    console.log(pageData);
+
     const newProdDate = pageData.map((item) => {
       switch (item.ExtraData.ElementType) {
         case "Search":
@@ -43,7 +43,7 @@ const ThemeRec = () => {
   useEffect(() => {
     getData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentPage, pageCount]);
+  }, [currentPage]);
 
   const onPrevClick = () => {
     if (currentPage === 1) {
@@ -79,7 +79,7 @@ const ThemeRec = () => {
         <div className="c-themeRec__infoEdit">
           <Tag keywordData={keywordData} />
           <div className="c-themeRec__banner">
-            <img src={themeData[0].Img.Src} alt="" />
+            <img src={`https://cs-a.ecimg.tw${themeData[0].Img.Src}`} alt="" />
           </div>
         </div>
       </div>
