@@ -1,14 +1,13 @@
 import React from "react";
 import "./pagination.scss";
 
-const Pagination = ({ onPrevClick, pageCount, onNextClick, currentPage }) => {
+const Pagination = ({ onPrevClick, totalPage, onNextClick, currentPage }) => {
   const handlePrevClick = () => {
     onPrevClick();
   };
   const handleNextClick = () => {
     onNextClick();
   };
-
   return (
     <ul className="c-pagination">
       <li className="c-pagination__item is-prev">
@@ -26,11 +25,11 @@ const Pagination = ({ onPrevClick, pageCount, onNextClick, currentPage }) => {
       </li>
       <li className="c-pagination__item is-active">{currentPage}</li>
       <li className="c-pagination__item">/</li>
-      <li className="c-pagination__item is-total">{pageCount}</li>
+      <li className="c-pagination__item is-total">{totalPage}</li>
       <li className="c-pagination__item is-next">
         <button
           className={
-            currentPage === pageCount
+            currentPage === totalPage
               ? "btn btn--circular is-disabled"
               : "btn btn--circular"
           }

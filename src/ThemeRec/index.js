@@ -2,26 +2,22 @@ import React, { useState, useEffect } from "react";
 import Tag from "../Component/Tag";
 import Pagination from "../Component/Pagination";
 import ProdItem from "../Component/ProdList/ProdItem";
-import Data from "../Feature/data1";
 
 import "./themeRec.scss";
-const ThemeRec = () => {
-  const [newData, setData] = useState([]);
+const ThemeRec = ({ data }) => {
+  const [newData, setNewData] = useState([]);
   const [perProd] = useState(6); //每頁顯示幾筆
-  const [pageCount, setPageCount] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
-  const themeData = Data.window1.Blocks[0].Nodes.slice(0, 1);
-  const keywordData = Data.window1.Blocks[0].Nodes.slice(1, 6);
+  const sliceProdData = data.slice(6, 24);
+  const totalPage = sliceProdData.length / 6;
+  // const themeData = data[0];
 
-  const getData = () => {
-    const slice = Data.window1.Blocks[0].Nodes.slice(6, 24);
-    const data = slice;
-    const pageData = data.slice(
+  useEffect(() => {
+    const pageData = sliceProdData.slice(
       currentPage * perProd - perProd,
       currentPage * perProd
     );
-
-    const newProdDate = pageData.map((item) => {
+    const newProdData = pageData.map((item) => {
       switch (item.ExtraData.ElementType) {
         case "Search":
           item.Link.Url = `https://ecshweb.pchome.com.tw/search/v3.3/?q=${item.Link.Url}`;
@@ -37,14 +33,9 @@ const ThemeRec = () => {
       }
       return item;
     });
-    setData(newProdDate);
-    setPageCount(Math.ceil(data.length / perProd));
-  };
-  useEffect(() => {
-    getData();
+    setNewData(newProdData);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentPage]);
-
+  }, [currentPage, totalPage]);
   const onPrevClick = () => {
     if (currentPage === 1) {
       return;
@@ -53,7 +44,7 @@ const ThemeRec = () => {
   };
 
   const onNextClick = () => {
-    if (currentPage === pageCount) {
+    if (currentPage === totalPage) {
       return;
     }
     setCurrentPage((prev) => prev + 1);
@@ -65,7 +56,7 @@ const ThemeRec = () => {
         {/* 背景編輯器更換 start */}
         <div
           className="c-themeRec__bgEdit"
-          style={{ backgroundColor: themeData[0].Link.Background }}
+          // style={{ backgroundColor: themeData.Link.Background }}
         />
         {/* 背景編輯器更換 end */}
         <div className="c-themeRec__colorTag">
@@ -75,11 +66,11 @@ const ThemeRec = () => {
             </i>
           </div>
         </div>
-        <h3 className="c-themeRec__adTitle">{themeData[0].Link.Text2}</h3>
+        {/* <h3 className="c-themeRec__adTitle">{themeData.Link.Text2}</h3> */}
         <div className="c-themeRec__infoEdit">
-          <Tag keywordData={keywordData} />
+          <Tag keywordData={data.slice(2, 6)} />
           <div className="c-themeRec__banner">
-            <img src={`https://cs-a.ecimg.tw${themeData[0].Img.Src}`} alt="" />
+            {/* <img src={`https://cs-a.ecimg.tw${themeData.Img.Src}`} alt="" /> */}
           </div>
         </div>
       </div>
@@ -91,7 +82,7 @@ const ThemeRec = () => {
         </div>
         <Pagination
           currentPage={currentPage}
-          pageCount={pageCount}
+          totalPage={totalPage}
           onPrevClick={onPrevClick}
           onNextClick={onNextClick}
         />
