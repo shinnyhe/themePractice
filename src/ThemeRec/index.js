@@ -10,8 +10,7 @@ const ThemeRec = ({ data }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const sliceProdData = data.slice(6, 24);
   const totalPage = sliceProdData.length / 6;
-  // const themeData = data[0];
-
+  console.log(data[0]);
   useEffect(() => {
     const pageData = sliceProdData.slice(
       currentPage * perProd - perProd,
@@ -33,6 +32,7 @@ const ThemeRec = ({ data }) => {
       }
       return item;
     });
+
     setNewData(newProdData);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage, totalPage]);
@@ -56,7 +56,7 @@ const ThemeRec = ({ data }) => {
         {/* 背景編輯器更換 start */}
         <div
           className="c-themeRec__bgEdit"
-          // style={{ backgroundColor: themeData.Link.Background }}
+          style={{ backgroundColor: data[0]?.Link?.Background }}
         />
         {/* 背景編輯器更換 end */}
         <div className="c-themeRec__colorTag">
@@ -66,11 +66,11 @@ const ThemeRec = ({ data }) => {
             </i>
           </div>
         </div>
-        {/* <h3 className="c-themeRec__adTitle">{themeData.Link.Text2}</h3> */}
+        <h3 className="c-themeRec__adTitle">{data[0]?.Link?.Text2}</h3>
         <div className="c-themeRec__infoEdit">
           <Tag keywordData={data.slice(2, 6)} />
           <div className="c-themeRec__banner">
-            {/* <img src={`https://cs-a.ecimg.tw${themeData.Img.Src}`} alt="" /> */}
+            <img src={`https://cs-a.ecimg.tw${data[0]?.Img?.Src}`} alt="" />
           </div>
         </div>
       </div>
