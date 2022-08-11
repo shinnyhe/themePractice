@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from "react";
 import Tag from "../Component/Tag";
+import Tab from "../Component/Tab";
 import Pagination from "../Component/Pagination";
 import ProdItem from "../Component/ProdList/ProdItem";
 
 import "./themeRec.scss";
-const ThemeRec = ({ data }) => {
+const ThemeRec = ({ data, themeData }) => {
   const [newData, setNewData] = useState([]);
   const [perProd] = useState(6); //每頁顯示幾筆
   const [currentPage, setCurrentPage] = useState(1);
   const sliceProdData = data.slice(6, 24);
   const totalPage = sliceProdData.length / 6;
-  console.log(data[0]);
+  console.log(themeData);
   useEffect(() => {
     const pageData = sliceProdData.slice(
       currentPage * perProd - perProd,
@@ -86,6 +87,9 @@ const ThemeRec = ({ data }) => {
           onPrevClick={onPrevClick}
           onNextClick={onNextClick}
         />
+      </div>
+      <div className="c-themeRec__toolBar">
+        <Tab themeData={themeData} />
       </div>
     </div>
   );
