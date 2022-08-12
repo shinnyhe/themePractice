@@ -1,13 +1,24 @@
 import React from "react";
 import "./tab.scss";
 
-const Tab = ({ themeData }) => {
+const Tab = ({ themeData, selectedThemeId, onHandleToolBarClick }) => {
+  const handleToolBarClick = () => {
+    onHandleToolBarClick();
+  };
   return (
     <ul className="c-themeRec__toolBarList">
-      {themeData?.map((obj) => (
-        <li key={obj.Id}>
-          <button type="button" className="c-themeRec__toolBarBtn">
-            我是按鈕
+      {themeData?.map((item) => (
+        <li
+          onClick={() => handleToolBarClick(item, item?.BlockId)}
+          key={item?.BlockId}
+        >
+          <button
+            type="button"
+            className={`c-themeRec__toolBarBtn ${
+              item?.BlockId === selectedThemeId ? "is-active" : ""
+            }`}
+          >
+            {item?.Nodes[0]?.Link?.Text}
           </button>
         </li>
       ))}

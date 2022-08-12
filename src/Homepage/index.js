@@ -9,7 +9,7 @@ const Homepage = () => {
     axios
       .get("/index/stage/v1/data&27655702")
       .then((res) => {
-        setData(res.data.window1.Blocks[0].Nodes);
+        setData(res.data.window.Blocks[0].Nodes);
         setThemeData(res.data.window.Blocks);
       })
       .catch((error) => console.log(error));
