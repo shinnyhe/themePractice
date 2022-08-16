@@ -2,8 +2,8 @@ import React from "react";
 import "./tab.scss";
 
 const Tab = ({ themeData, selectedThemeId, onHandleToolBarClick }) => {
-  const handleToolBarClick = () => {
-    onHandleToolBarClick();
+  const handleToolBarClick = (themeData, themeId) => {
+    onHandleToolBarClick(themeData, themeId);
   };
   return (
     <ul className="c-themeRec__toolBarList">

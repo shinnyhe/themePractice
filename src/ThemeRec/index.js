@@ -8,11 +8,10 @@ const ThemeRec = ({ data, themeData }) => {
   const [newData, setNewData] = useState([]);
   const [perProd] = useState(6); //每頁顯示幾筆
   const [selectedTheme, setSelectedTheme] = useState([]);
-  const [selectedThemeId, setSelectedThemeId] = useState(themeData?.[0]);
+  const [selectedThemeId, setSelectedThemeId] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
-  const sliceProdData = data.slice(6, 24);
+  const sliceProdData = selectedTheme.slice(6, 24);
   const totalPage = sliceProdData.length / 6;
-
   useEffect(() => {
     const pageData = sliceProdData.slice(
       currentPage * perProd - perProd,
@@ -34,18 +33,14 @@ const ThemeRec = ({ data, themeData }) => {
       }
       return item;
     });
-    const [selectedThemeTab] = data?.filter(
-      ({ themeId }) => themeId === selectedThemeId
-    );
-    setSelectedTheme(selectedThemeTab);
+
     setNewData(newProdData);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPage, totalPage, selectedThemeId]);
-  console.log(selectedTheme);
-  const onHandleToolBarClick = (themeId) => {
+  const onHandleToolBarClick = (themeData, themeId) => {
+    setSelectedTheme(themeData?.Nodes);
     setSelectedThemeId(themeId);
   };
-  console.log(selectedThemeId);
   const onPrevClick = () => {
     if (currentPage === 1) {
       return;
@@ -66,7 +61,7 @@ const ThemeRec = ({ data, themeData }) => {
         {/* 背景編輯器更換 start */}
         <div
           className="c-themeRec__bgEdit"
-          style={{ backgroundColor: selectedTheme?.Link?.Background }}
+          style={{ backgroundColor: selectedTheme[0]?.Link?.Background }}
         />
         {/* 背景編輯器更換 end */}
         <div className="c-themeRec__colorTag">
@@ -76,12 +71,12 @@ const ThemeRec = ({ data, themeData }) => {
             </i>
           </div>
         </div>
-        <h3 className="c-themeRec__adTitle">{selectedTheme?.Link?.Text2}</h3>
+        <h3 className="c-themeRec__adTitle">{selectedTheme[0]?.Link?.Text2}</h3>
         <div className="c-themeRec__infoEdit">
-          <Tag keywordData={data.slice(2, 6)} />
+          <Tag keywordData={selectedTheme.slice(2, 6)} />
           <div className="c-themeRec__banner">
             <img
-              src={`https://cs-a.ecimg.tw${selectedTheme?.Img?.Src}`}
+              src={`https://cs-a.ecimg.tw/${selectedTheme[0]?.Img?.Src}`}
               alt=""
             />
           </div>
