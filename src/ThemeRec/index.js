@@ -76,7 +76,7 @@ const ThemeRec = ({ data, themeData }) => {
           <Tag keywordData={selectedTheme.slice(2, 6)} />
           <div className="c-themeRec__banner">
             <img
-              src={`https://cs-a.ecimg.tw/${selectedTheme[0]?.Img?.Src}`}
+              src={`https://fs-a.ecimg.tw${selectedTheme[0]?.Img?.Src}`}
               alt=""
             />
           </div>
