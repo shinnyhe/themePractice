@@ -41,19 +41,6 @@ const ThemeRec = ({ data, themeData }) => {
     setSelectedTheme(themeData?.Nodes);
     setSelectedThemeId(themeId);
   };
-  const onPrevClick = () => {
-    if (currentPage === 1) {
-      return;
-    }
-    setCurrentPage((prev) => prev - 1);
-  };
-
-  const onNextClick = () => {
-    if (currentPage === totalPage) {
-      return;
-    }
-    setCurrentPage((prev) => prev + 1);
-  };
 
   return (
     <div className="c-themeRec">
@@ -91,8 +78,7 @@ const ThemeRec = ({ data, themeData }) => {
         <Pagination
           currentPage={currentPage}
           totalPage={totalPage}
-          onPrevClick={onPrevClick}
-          onNextClick={onNextClick}
+          setCurrentPage={setCurrentPage}
         />
       </div>
       <div className="c-themeRec__toolBar">

@@ -1,12 +1,19 @@
 import React from "react";
 import "./pagination.scss";
 
-const Pagination = ({ onPrevClick, totalPage, onNextClick, currentPage }) => {
+const Pagination = ({ totalPage, currentPage, setCurrentPage }) => {
   const handlePrevClick = () => {
-    onPrevClick();
+    if (currentPage === 1) {
+      return;
+    }
+    setCurrentPage((prev) => prev - 1);
   };
+
   const handleNextClick = () => {
-    onNextClick();
+    if (currentPage === totalPage) {
+      return;
+    }
+    setCurrentPage((prev) => prev + 1);
   };
   return (
     <ul className="c-pagination">
