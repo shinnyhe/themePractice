@@ -1,49 +1,36 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./prodList.scss";
-import ProdItem from "./ProdList/ProdItem";
+import ProdItem from "./ProdItem";
 import PropTypes from "prop-types";
 const ProdList = (props) => {
-  const { newData } = props;
+  const { infoData, currentPage } = props;
+  const [prodData, setProdData] = useState([]);
+  const [perProd] = useState(6); //每頁顯示幾筆
+  useEffect(() => {
+    const pageData = infoData.slice(
+      currentPage * perProd - perProd,
+      currentPage * perProd
+    );
+    setProdData(pageData);
+  }, [infoData, currentPage, perProd]);
   return (
     <div className="c-themeRec__prodList">
-      {newData.map((objData) => (
+      {prodData.map((objData) => (
         <ProdItem key={objData.Id} {...objData} />
       ))}
     </div>
   );
 };
 ProdList.prototype = {
-  newData: PropTypes.shape({
+  infoData: PropTypes.shape({
     Id: PropTypes.number,
-    Link: PropTypes.shape({
-      Text: PropTypes.string,
-      Text1: PropTypes.string,
-      Url: PropTypes.string,
-    }),
-    Img: PropTypes.shape({
-      Src: PropTypes.string,
-    }),
-    ExtraData: PropTypes.shape({
-      ElementType: PropTypes.string,
-      Sort: PropTypes.number,
-    }),
   }),
+  currentPage: PropTypes.number,
 };
 ProdList.defaultProps = {
-  newData: {
+  infoData: {
     Id: null,
-    Link: {
-      Text: undefined,
-      Text1: undefined,
-      Url: undefined,
-    },
-    Img: {
-      Src: undefined,
-    },
-    ExtraData: {
-      ElementType: undefined,
-      Sort: null,
-    },
   },
+  currentPage: undefined,
 };
 export default ProdList;

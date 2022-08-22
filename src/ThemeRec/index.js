@@ -1,42 +1,26 @@
 import React, { useState, useEffect } from "react";
 import Tag from "../Component/Tag";
+import axios from "axios";
 import Tab from "../Component/Tab";
 import Pagination from "../Component/Pagination";
-import ProdItem from "../Component/ProdList/ProdItem";
+import ProdList from "../Component/ProdList/ProdList";
 import "./themeRec.scss";
-const ThemeRec = ({ data, themeData }) => {
-  const [newData, setNewData] = useState([]);
-  const [perProd] = useState(6); //每頁顯示幾筆
+
+const ThemeRec = () => {
+  const [data, setData] = useState([]);
   const [selectedTheme, setSelectedTheme] = useState([]);
   const [selectedThemeId, setSelectedThemeId] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
-  const sliceProdData = selectedTheme.slice(6, 24);
-  const totalPage = sliceProdData.length / 6;
+  const totalPage = selectedTheme.slice(6, 24).length / 6;
   useEffect(() => {
-    const pageData = sliceProdData.slice(
-      currentPage * perProd - perProd,
-      currentPage * perProd
-    );
-    const newProdData = pageData.map((item) => {
-      switch (item.ExtraData.ElementType) {
-        case "Search":
-          item.Link.Url = `https://ecshweb.pchome.com.tw/search/v3.3/?q=${item.Link.Url}`;
-          break;
-        case "Store":
-          item.Link.Url = `https://24h.pchome.com.tw/store/${item.Link.Url}`;
-          break;
-        case "Prod":
-          item.Link.Url = `https://24h.pchome.com.tw/prod/${item.Link.Url}`;
-          break;
-        default:
-          break;
-      }
-      return item;
-    });
-
-    setNewData(newProdData);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentPage, totalPage, selectedThemeId]);
+    axios
+      .get("/index/stage/v1/data&27655702")
+      .then((res) => {
+        setSelectedTheme(res.data.window.Blocks[0].Nodes);
+        setData(res.data.window.Blocks);
+      })
+      .catch((error) => console.log(error));
+  }, []);
   const onHandleToolBarClick = (themeData, themeId) => {
     setSelectedTheme(themeData?.Nodes);
     setSelectedThemeId(themeId);
@@ -70,20 +54,19 @@ const ThemeRec = ({ data, themeData }) => {
         </div>
       </div>
       <div className="c-themeRec__prodInfo">
-        <div className="c-themeRec__prodList">
-          {newData.map((objData) => (
-            <ProdItem key={objData.Id} {...objData} />
-          ))}
-        </div>
+        <ProdList
+          infoData={selectedTheme.slice(6, 24)}
+          currentPage={currentPage}
+        />
         <Pagination
           currentPage={currentPage}
-          totalPage={totalPage}
           setCurrentPage={setCurrentPage}
+          totalPage={totalPage}
         />
       </div>
       <div className="c-themeRec__toolBar">
         <Tab
-          themeData={themeData}
+          themeData={data}
           selectedThemeId={selectedThemeId}
           onHandleToolBarClick={onHandleToolBarClick}
         />

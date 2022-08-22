@@ -1,13 +1,21 @@
 import "./reset.scss";
 import "./grid.scss";
 import "./App.css";
-import Homepage from "./Homepage";
+import ThemeRec from "./ThemeRec";
 
 const App = () => {
   return (
-    <div className="App">
-      <Homepage />
-    </div>
+    <main>
+      <div className="container container--lg">
+        <div className="row">
+          <div className="col-12">
+            <section className="u-mt32">
+              <ThemeRec />
+            </section>
+          </div>
+        </div>
+      </div>
+    </main>
   );
 };
 

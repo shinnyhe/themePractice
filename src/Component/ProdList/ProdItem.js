@@ -2,10 +2,28 @@ import React from "react";
 import "./prodList.scss";
 import PropTypes from "prop-types";
 const ProdItem = (props) => {
-  const { Link, Img } = props;
+  const { Link, Img, ExtraData } = props;
+  const getUrl = (type, url) => {
+    switch (type) {
+      case "Search":
+        return `https://ecshweb.pchome.com.tw/search/v3.3/?q=${url}`;
+      case "Store":
+        return `https://24h.pchome.com.tw/store/${url}`;
+      case "Prod":
+        return `https://24h.pchome.com.tw/prod/${url}`;
+      case "Url":
+        return url;
+      default:
+        break;
+    }
+  };
+
   return (
     <div className="c-prodList__prodInfo">
-      <a href={Link.Url} className="c-prodList__link">
+      <a
+        href={getUrl(ExtraData.ElementType, Link.Url)}
+        className="c-prodList__link"
+      >
         <div className="c-prodList__flex">
           <div className="c-prodList__head">
             <div className="c-prodList__img">
@@ -30,6 +48,9 @@ ProdItem.prototype = {
   Img: PropTypes.shape({
     Src: PropTypes.string,
   }),
+  ExtraData: PropTypes.shape({
+    ExtraData: PropTypes.string,
+  }),
 };
 ProdItem.defaultProps = {
   Link: {
@@ -39,6 +60,9 @@ ProdItem.defaultProps = {
   },
   Img: {
     Src: undefined,
+  },
+  ExtraData: {
+    ExtraData: undefined,
   },
 };
 export default ProdItem;
