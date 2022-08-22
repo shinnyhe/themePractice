@@ -1,6 +1,6 @@
 import React from "react";
 import "./pagination.scss";
-
+import PropTypes from "prop-types";
 const Pagination = ({ totalPage, currentPage, setCurrentPage }) => {
   const handlePrevClick = () => {
     if (currentPage === 1) {
@@ -49,5 +49,14 @@ const Pagination = ({ totalPage, currentPage, setCurrentPage }) => {
     </ul>
   );
 };
-
+Pagination.prototype = {
+  totalPage: PropTypes.number,
+  currentPage: PropTypes.number,
+  setCurrentPage: PropTypes.func,
+};
+Pagination.defaultProps = {
+  totalPage: null,
+  page: null,
+  setCurrentPage: () => {},
+};
 export default Pagination;

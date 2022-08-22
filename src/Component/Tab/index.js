@@ -1,6 +1,6 @@
 import React from "react";
 import "./tab.scss";
-
+import PropTypes from "prop-types";
 const Tab = ({ themeData, selectedThemeId, onHandleToolBarClick }) => {
   const handleToolBarClick = (themeData, themeId) => {
     onHandleToolBarClick(themeData, themeId);
@@ -25,5 +25,20 @@ const Tab = ({ themeData, selectedThemeId, onHandleToolBarClick }) => {
     </ul>
   );
 };
-
+Tab.prototype = {
+  themeData: PropTypes.shape({
+    Id: PropTypes.number,
+    Text: PropTypes.string,
+  }),
+  selectedThemeId: PropTypes.number,
+  onHandleToolBarClick: PropTypes.func,
+};
+Tab.defaultProps = {
+  themeData: {
+    Id: null,
+    Text: undefined,
+  },
+  selectedThemeId: null,
+  onHandleToolBarClick: () => {},
+};
 export default Tab;

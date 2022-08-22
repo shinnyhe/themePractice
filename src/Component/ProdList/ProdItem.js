@@ -1,6 +1,6 @@
 import React from "react";
 import "./prodList.scss";
-
+import PropTypes from "prop-types";
 const ProdItem = (props) => {
   const { Link, Img } = props;
   return (
@@ -21,5 +21,24 @@ const ProdItem = (props) => {
     </div>
   );
 };
-
+ProdItem.prototype = {
+  Link: PropTypes.shape({
+    Text: PropTypes.string,
+    Text1: PropTypes.string,
+    Url: PropTypes.string,
+  }),
+  Img: PropTypes.shape({
+    Src: PropTypes.string,
+  }),
+};
+ProdItem.defaultProps = {
+  Link: {
+    Text: undefined,
+    Text1: undefined,
+    Url: undefined,
+  },
+  Img: {
+    Src: undefined,
+  },
+};
 export default ProdItem;
